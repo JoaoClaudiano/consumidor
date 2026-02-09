@@ -1,216 +1,1829 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositório de Provas - ecivilufc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a237e">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #3949ab;
+            --accent: #4caf50;
+            --danger: #d32f2f;
+            --warning: #ff9800;
+            --light: #f8f9fa;
+            --dark: #2d3748;
+            --gray: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+        }
 
-<!-- Título e SEO -->
-<title>Notificação Extrajudicial Fácil | Direito do Consumidor</title>
-<meta name="description" content="Gere notificações extrajudiciais rapidamente. Ferramenta prática para consumidores resolverem cobranças indevidas, atrasos, arrependimento de compras e cancelamentos.">
-<meta name="keywords" content="direito do consumidor, notificação extrajudicial, cobrança indevida, atraso entrega, arrependimento compra online, cancelamento assinatura">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Direito do Consumidor Fácil">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
 
-<!-- Open Graph -->
-<meta property="og:title" content="Notificação Extrajudicial Fácil | Direito do Consumidor">
-<meta property="og:description" content="Ferramenta prática para gerar notificações extrajudiciais e resolver problemas de consumo de forma rápida e legal.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://seusite.com/">
-<meta property="og:image" content="https://seusite.com/preview.jpg">
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Notificação Extrajudicial Fácil | Direito do Consumidor">
-<meta name="twitter:description" content="Ferramenta prática para gerar notificações extrajudiciais e resolver problemas de consumo de forma rápida e legal.">
-<meta name="twitter:image" content="https://seusite.com/preview.jpg">
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
 
-<!-- jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transform: translate(100px, -100px);
+        }
 
-<!-- Styles -->
-<style>
-:root { --primary:#0f172a; --accent:#2563eb; --success:#059669; --bg:#f8fafc; }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:#1e293b;margin:0;line-height:1.6;}
-.nav{background:var(--primary);color:white;padding:1.2rem;text-align:center;font-weight:800;position:sticky;top:0;z-index:1000;}
-.progress-container{background:#e2e8f0;height:6px;width:100%;position:sticky;top:3.4rem;z-index:100;}
-#progress-bar{background:var(--accent);width:0%;height:100%;transition:0.5s ease;}
-.container{max-width:1000px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:1fr 340px;gap:2rem;}
-@media(max-width:768px){.container{grid-template-columns:1fr;}}
-.card{background:white;padding:2rem;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.1);border:1px solid #e2e8f0;margin-bottom:2rem;}
-.step{display:none;}.step.active{display:block;animation:slideIn 0.4s ease-out;}
-@keyframes slideIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
 
-/* Form */
-label{display:block;font-weight:700;margin-bottom:0.5rem;font-size:0.9rem;color:var(--primary);}
-input,select,textarea{width:100%;padding:0.8rem;border:2px solid #f1f5f9;border-radius:10px;font-size:1rem;margin-bottom:1rem;box-sizing:border-box;}
-input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-/* Provas Box */
-.provas-box{background:#eff6ff;border-left:4px solid var(--accent);padding:1rem;border-radius:8px;font-size:0.85rem;margin-bottom:1.5rem;}
+        .logo-icon {
+            font-size: 2.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
 
-/* Buttons */
-.btn-group{display:flex;gap:1rem;}
-.btn{padding:1rem;border:none;border-radius:10px;font-weight:800;cursor:pointer;flex:1;transition:0.2s;}
-.btn-next{background:var(--accent);color:white;}
-.btn-pdf{background:var(--success);color:white;width:100%;margin-top:1rem;}
-.preview-paper{background:white;padding:3rem;border:1px solid #ddd;font-family:'Times New Roman',serif;line-height:1.5;font-size:1.1rem;}
+        .logo-text h1 {
+            font-size: 2.4rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
 
-/* Sidebar */
-.sidebar{position:sticky;top:2rem;}
-.faq-card{background:white;padding:1rem;border-radius:12px;border:1px solid #e2e8f0;margin-top:1rem;}
-.faq-card h4{margin:0 0 0.5rem 0;color:var(--accent);font-size:0.9rem;}
-.faq-card p{font-size:0.8rem;margin:0;color:#64748b;}
-.ads-box{background:#f1f5f9;text-align:center;padding:1rem;margin:1rem 0;color:#64748b;border:1px dashed #cbd5e1;border-radius:12px;}
-</style>
+        .logo-text .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
 
-<!-- Schema FAQ + TechArticle + Breadcrumb -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"Como reclamar de cobrança indevida?","acceptedAnswer":{"@type":"Answer","text":"Use o Artigo 42 do Código de Defesa do Consumidor. Você tem direito à devolução em dobro do valor pago indevidamente."}},
-    {"@type":"Question","name":"Qual o prazo de resposta da empresa?","acceptedAnswer":{"@type":"Answer","text":"Empresas têm de 5 a 10 dias úteis para responder notificações extrajudiciais."}},
-    {"@type":"Question","name":"E se não responderem?","acceptedAnswer":{"@type":"Answer","text":"O próximo passo é o Juizado Especial Cível. Este documento servirá como prova de tentativa de conciliação."}}
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Guia Completo de Notificação Extrajudicial para Consumidores",
-  "image": "https://seusite.com/imagem-guia.jpg",
-  "author":{"@type":"Person","name":"Equipe Direito do Consumidor Fácil"},
-  "publisher":{"@type":"Organization","name":"Direito do Consumidor Fácil","logo":{"@type":"ImageObject","url":"https://seusite.com/logo.png"}},
-  "datePublished":"2026-02-08",
-  "dateModified":"2026-02-08",
-  "mainEntityOfPage":"https://seusite.com/",
-  "keywords":"direito do consumidor, notificação extrajudicial, cobrança indevida, arrependimento compra online, atraso entrega, cancelamento assinatura"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"BreadcrumbList",
-  "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Home","item":"https://seusite.com/"},
-    {"@type":"ListItem","position":2,"name":"Notificação Extrajudicial","item":"https://seusite.com/notificacao"}
-  ]
-}
-</script>
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Search and Filters */
+        .search-filters-container {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            z-index: 1;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.1);
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--dark);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-group select:hover {
+            border-color: var(--secondary);
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.1);
+        }
+
+        /* Main Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 160px;
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .sidebar-header h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .semester-list {
+            list-style: none;
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .semester-list li {
+            margin-bottom: 8px;
+        }
+
+        .semester-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--light);
+            border-radius: 8px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .semester-list a:hover {
+            background: #e8eaf6;
+            transform: translateX(5px);
+        }
+
+        .semester-list a.active {
+            background: var(--secondary);
+            color: white;
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+
+        .semester-list a.optativas {
+            border-left-color: var(--accent);
+            background: #e8f5e9;
+        }
+
+        .semester-list a.optativas.active {
+            background: var(--accent);
+        }
+
+        .semester-count {
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .semester-list a.active .semester-count {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .main-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .main-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-info {
+            color: var(--gray);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .result-info span {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Disciplines Grid */
+        .disciplines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .discipline-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discipline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .discipline-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .discipline-professor {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag-gabarito { background: #e8f5e9; color: #2e7d32; }
+        .tag-resolvida { background: #fff3e0; color: #ef6c00; }
+        .tag-recente { background: #fce4ec; color: #c2185b; }
+        .tag-popular { background: #e3f2fd; color: #1565c0; }
+
+        .prova-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .prova-list li {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .prova-list li:hover {
+            border-color: var(--secondary);
+            background: #f8f9ff;
+        }
+
+        .prova-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .prova-header h4 {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .prova-stats {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-size {
+            font-size: 0.85rem;
+            color: var(--gray);
+            background: var(--light);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .download-count {
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .prova-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        #pdfViewer {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            border: none;
+        }
+
+        /* Dashboard */
+        .stats-dashboard {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Contribution Section */
+        .contribution-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            margin-top: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contribution-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transform: translate(150px, -150px);
+        }
+
+        .contribution-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contribution-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .contribution-content p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                height: auto;
+                max-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .disciplines-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-actions {
+                width: 100%;
+            }
+            
+            .filters-row {
+                flex-direction: column;
+            }
+            
+            .search-filters-container {
+                position: static;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+
+        /* R2 Specific */
+        .r2-info {
+            background: #e8f5e9;
+            border: 2px dashed #4caf50;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .r2-info h4 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+
+        .r2-info code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d32f2f;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <i class="fas fa-university logo-icon"></i>
+                <div class="logo-text">
+                    <h1>ecivilufc</h1>
+                    <p class="subtitle">Repositório de Provas - Engenharia Civil UFC</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="abrirProvaAleatoria()">
+                    <i class="fas fa-random"></i> Prova Aleatória
+                </button>
+                <button class="btn btn-secondary" onclick="mostrarMaisBaixadas()">
+                    <i class="fas fa-fire"></i> Mais Baixadas
+                </button>
+                <button class="btn btn-secondary" onclick="filtrarRecentes()">
+                    <i class="fas fa-star"></i> Recentes
+                </button>
+            </div>
+        </div>
+        <div class="stats-row" style="display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap;">
+            <div class="stat-item">
+                <i class="fas fa-file-pdf"></i>
+                <span id="totalProvas">0</span> Provas
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-download"></i>
+                <span id="totalDownloads">0</span> Downloads
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-book"></i>
+                <span id="totalDisciplinas">0</span> Disciplinas
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <span id="totalSemestres">0</span> Semestres
+            </div>
+        </div>
+    </header>
 
-<div class="nav">⚖️ Direito do Consumidor Fácil</div>
-<div class="progress-container"><div id="progress-bar"></div></div>
+    <!-- Search and Filters -->
+    <div class="search-filters-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Buscar por disciplina, professor, prova ou tag...">
+        </div>
+        <div class="filters-row">
+            <div class="filter-group">
+                <label for="filterProfessor"><i class="fas fa-user-graduate"></i> Professor</label>
+                <select id="filterProfessor">
+                    <option value="">Todos os professores</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterTipo"><i class="fas fa-file-alt"></i> Tipo de Prova</label>
+                <select id="filterTipo">
+                    <option value="">Todos os tipos</option>
+                    <option value="P1">P1</option>
+                    <option value="P2">P2</option>
+                    <option value="VS">VS</option>
+                    <option value="FINAL">Final</option>
+                    <option value="OUTRO">Outro</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterTag"><i class="fas fa-tag"></i> Tags</label>
+                <select id="filterTag">
+                    <option value="">Todas as tags</option>
+                    <option value="gabarito">Com Gabarito</option>
+                    <option value="resolvida">Resolvida</option>
+                    <option value="recente">Recente</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterAno"><i class="fas fa-calendar"></i> Ano</label>
+                <select id="filterAno">
+                    <option value="">Todos os anos</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
-<div class="container">
-<main>
-<!-- STEP 1 -->
-<div class="card step active" id="step1">
-<h2>O que aconteceu?</h2>
-<label>Selecione a categoria:</label>
-<select id="tipo" onchange="mostrarDica()">
-<option value="cobranca">Cobrança Indevida / Banco</option>
-<option value="atraso">Atraso na Entrega / Produto</option>
-<option value="arrependimento">Arrependimento (Compras Online)</option>
-<option value="vicio">Defeito (Vício de Qualidade)</option>
-<option value="cancelamento">Cancelamento de Assinatura</option>
-</select>
-<div id="dicaProvas" class="provas-box">💡 Selecione a categoria para ver dicas.</div>
-<button class="btn btn-next" onclick="next(2)">Próximo Passo →</button>
-</div>
+    <!-- R2 Information -->
+    <div class="r2-info">
+        <h4><i class="fas fa-cloud"></i> Armazenamento Cloudflare R2</h4>
+        <p>As provas estão hospedadas no Cloudflare R2 para melhor performance e custo zero de downloads.</p>
+        <p><small>URL base: <code>https://seu-bucket.r2.cloudflarestorage.com</code></small></p>
+    </div>
 
-<!-- STEP 2 -->
-<div class="card step" id="step2">
-<h2>Identificação</h2>
-<label>Seu Nome:</label>
-<input type="text" id="nome" placeholder="Nome Completo">
-<label>Nome da Empresa:</label>
-<input type="text" id="empresa" placeholder="Ex: Operadora X">
-<label>Protocolo de Atendimento:</label>
-<input type="text" id="prot" placeholder="Número do SAC/Chat">
-<div class="btn-group">
-<button class="btn" style="background:#e2e8f0" onclick="next(1)">Voltar</button>
-<button class="btn btn-next" onclick="next(3)">Detalhes →</button>
-</div>
-</div>
+    <!-- Main Layout -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-layer-group"></i> Semestres</h2>
+            </div>
+            <ul class="semester-list" id="semesterList">
+                <!-- Generated by JavaScript -->
+            </ul>
+            <div style="padding: 1.5rem; border-top: 1px solid var(--border);">
+                <button class="btn btn-secondary" onclick="limparFiltros()" style="width: 100%;">
+                    <i class="fas fa-filter"></i> Limpar Filtros
+                </button>
+            </div>
+        </aside>
 
-<!-- STEP 3 -->
-<div class="card step" id="step3">
-<h2>Relato dos Fatos</h2>
-<label>O que ocorreu? (Seja específico):</label>
-<textarea id="relato" rows="5" placeholder="Ex: No dia X, fui cobrado por um serviço que não contratei..."></textarea>
-<div class="btn-group">
-<button class="btn" style="background:#e2e8f0" onclick="next(2)">Voltar</button>
-<button class="btn btn-next" onclick="finalizar()">Gerar Documento</button>
-</div>
-</div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="main-header">
+                <h2><i class="fas fa-book-open"></i> <span id="semesterTitle">1º Semestre</span></h2>
+                <div class="result-info">
+                    <span><i class="fas fa-book"></i> <span id="disciplinaCount">0</span> disciplinas</span>
+                    <span><i class="fas fa-file-pdf"></i> <span id="provaCount">0</span> provas</span>
+                    <span><i class="fas fa-clock"></i> Última atualização: <span id="lastUpdate">hoje</span></span>
+                </div>
+            </div>
 
-<!-- STEP 4 -->
-<div class="card step" id="step4">
-<h2>Seu Documento Gerado</h2>
-<div class="preview-paper" id="papel"></div>
-<button class="btn btn-pdf" onclick="baixarPDF()">Baixar PDF Profissional</button>
-<button class="btn" style="background:#25d366;color:white;margin-top:10px;" onclick="whatsapp()">Enviar p/ WhatsApp</button>
-<div class="ads-box">💰 Espaço para AdSense / Banner Publicitário</div>
-</div>
+            <div id="searchResults" class="hidden">
+                <!-- Search results will be shown here -->
+            </div>
 
-<!-- Conteúdo Profundo SEO-Friendly -->
-<section id="conteudo-profundo">
-<h2>Guia Completo de Notificação Extrajudicial para Consumidores</h2>
-<p>Este guia detalha como agir em casos de cobrança indevida, atraso na entrega, arrependimento de compras e cancelamentos, baseado no Código de Defesa do Consumidor.</p>
+            <div class="disciplines-grid" id="disciplinesContainer">
+                <!-- Generated by JavaScript -->
+            </div>
 
-<h3>1. Cobrança Indevida</h3>
-<p>Conforme <strong>Art. 42 do CDC</strong>, você pode exigir devolução em dobro do valor pago indevidamente. Use a ferramenta acima para gerar sua notificação.</p>
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state hidden">
+                <i class="fas fa-inbox"></i>
+                <h3>Nenhuma prova encontrada</h3>
+                <p>Tente ajustar os filtros ou usar termos de busca diferentes.</p>
+                <button class="btn btn-primary mt-2" onclick="limparFiltros()">
+                    <i class="fas fa-times"></i> Limpar todos os filtros
+                </button>
+            </div>
 
-<h3>2. Atraso na Entrega de Produtos</h3>
-<p>Segundo <strong>Art. 35 do CDC</strong>, você pode exigir cumprimento da oferta ou rescisão do contrato. Inclua comprovantes de compra e prazos.</p>
+            <!-- Statistics Dashboard -->
+            <div class="stats-dashboard">
+                <h3><i class="fas fa-chart-bar"></i> Estatísticas do Repositório</h3>
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Generated by JavaScript -->
+                </div>
+            </div>
 
-<h3>3. Arrependimento de Compra Online</h3>
-<p>Prazo de 7 dias para desistência (Art. 49 CDC). A ferramenta gera automaticamente a notificação formal.</p>
+            <!-- Contribution Section -->
+            <div class="contribution-section">
+                <div class="contribution-content">
+                    <h3><i class="fas fa-hands-helping"></i> Contribua com o Projeto!</h3>
+                    <p>Ajude a comunidade acadêmica compartilhando provas que ainda não estão no repositório. Todas as contribuições são revisadas antes de serem publicadas.</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary pulse" onclick="abrirFormularioContribuicao()">
+                            <i class="fas fa-upload"></i> Enviar Provas
+                        </button>
+                        <button class="btn btn-secondary" onclick="reportarProblema()">
+                            <i class="fas fa-flag"></i> Reportar Problema
+                        </button>
+                        <button class="btn btn-secondary" onclick="sugerirMelhoria()">
+                            <i class="fas fa-lightbulb"></i> Sugerir Melhoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-<h3>4. Vício do Produto</h3>
-<p>Garantia legal e vícios de qualidade (Art. 18 do CDC). Inclua fotos ou laudos técnicos.</p>
+    <!-- PDF Modal -->
+    <div class="modal" id="pdfModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Visualizando PDF</h3>
+                <button class="btn btn-danger" onclick="fecharModal()">
+                    <i class="fas fa-times"></i> Fechar
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
 
-<h3>5. Cancelamento de Serviços</h3>
-<p>Respeito à boa-fé objetiva. Notifique corretamente para evitar cobrança indevida.</p>
+    <!-- Contribution Modal -->
+    <div class="modal" id="contributionModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-cloud-upload-alt"></i> Contribuir</h3>
+                <button class="btn btn-danger" onclick="fecharContributionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 2rem;">
+                <p>Para contribuir com provas:</p>
+                <ol style="text-align: left; margin: 1.5rem 0; padding-left: 1.5rem;">
+                    <li>Entre em contato por email</li>
+                    <li>Envie as provas em PDF</li>
+                    <li>Informe disciplina, professor e semestre</li>
+                    <li>Irei adicionar manualmente ao repositório</li>
+                </ol>
+                <p><strong>Email:</strong> seu-email@ecivilufc.com</p>
+                <div class="mt-3">
+                    <button class="btn btn-primary" onclick="copiarEmail()">
+                        <i class="fas fa-copy"></i> Copiar Email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="ads-box">💰 Inserção de Banner / Afiliado no conteúdo SEO</div>
-</section>
+    <!-- Footer -->
+    <footer>
+        <p>ecivilufc - Repositório de Provas | Engenharia Civil - Universidade Federal do Ceará</p>
+        <div class="footer-links">
+            <a href="#" onclick="abrirFormularioContribuicao()">Contribuir</a>
+            <a href="#" onclick="reportarProblema()">Reportar Problema</a>
+            <a href="#" onclick="mostrarSobre()">Sobre o Projeto</a>
+            <a href="#" onclick="mostrarPrivacidade()">Privacidade</a>
+        </div>
+        <p>© 2023 - Mantido por estudantes. Acesso gratuito, sem necessidade de cadastro.</p>
+        <p class="mt-1">
+            <i class="fas fa-sync-alt"></i> Atualizado automaticamente | 
+            <i class="fas fa-mobile-alt"></i> Compatível com dispositivos móveis | 
+            <i class="fas fa-bolt"></i> Hospedado no Cloudflare
+        </p>
+    </footer>
 
-</main>
+    <script>
+        // ==================== CONFIGURAÇÃO R2 ====================
+        const R2_CONFIG = {
+            // ATENÇÃO: Substitua pela URL do seu bucket R2
+            baseUrl: "https://seu-bucket.r2.cloudflarestorage.com",
+            // OU use um domínio personalizado:
+            // baseUrl: "https://provas.ecivilufc.com",
+            
+            // Estrutura de pastas no R2
+            paths: {
+                provas: "/provas",
+                thumbs: "/thumbs",
+                porSemestre: "/por-semestre",
+                porDisciplina: "/por-disciplina"
+            }
+        };
 
-<aside class="sidebar">
-<div class="card" style="padding:1.5rem;background:#1e293b;color:white;">
-<h3 style="margin-top:0">📊 Status do Sistema</h3>
-<p style="font-size:0.8rem;">Jurisprudência 2026 atualizada.</p>
-<div style="font-size:0.7rem;color:#38bdf8;">✔ Conexão Segura (SSL)<br>✔ Proteção LGPD</div>
-</div>
+        // ==================== DADOS DO SISTEMA ====================
+        let todosDados = [];
+        let professoresLista = new Set();
+        let anosLista = new Set();
+        let downloadsData = JSON.parse(localStorage.getItem('ecivilufc_downloads')) || {};
+        let currentFilters = {
+            semestre: 1,
+            professor: '',
+            tipo: '',
+            tag: '',
+            ano: '',
+            search: ''
+        };
 
-<div class="faq-card">
-<h4>Qual o prazo de resposta?</h4>
-<p>Empresas têm de 5 a 10 dias úteis para responder notificações extrajudiciais.</p>
-</div>
-<div class="faq-card">
-<h4>E se não responderem?</h4>
-<p>O próximo passo é o Juizado Especial Cível. Este documento servirá como prova de tentativa de conciliação.</p>
-</div>
+        // Dados de exemplo - Substitua com seus dados reais
+        const semestres = [
+            {
+                id: 1,
+                nome: "1º Semestre",
+                disciplinas: [
+                    { 
+                        nome: "Cálculo Diferencial e Integral I", 
+                        professor: "Prof. Dr. Carlos Silva", 
+                        tags: ["gabarito", "recente"],
+                        provas: [
+                            { 
+                                nome: "P1 - 2023.1", 
+                                tamanho: "1.2 MB", 
+                                arquivo: `${R2_CONFIG.baseUrl}/2023-1/calculo-1/P1_2023-1.pdf`,
+                                tipo: "P1", 
+                                tags: ["gabarito"], 
+                                ano: "2023",
+                                downloads: 0 
+                            },
+                            { 
+                                nome: "P2 - 2023.1", 
+                                tamanho: "1.5 MB", 
+                                arquivo: `${R2_CONFIG.baseUrl}/2023-1/calculo-1/P2_2023-1.pdf`,
+                                tipo: "P2", 
+                                tags: ["gabarito"], 
+                                ano: "2023",
+                                downloads: 0 
+                            }
+                        ]
+                    }
+                    // Adicione mais disciplinas aqui
+                ]
+            }
+            // Adicione mais semestres aqui (até 10 + optativas)
+        ];
 
-<div class="ads-box">💰 Espaço lateral para AdSense / Banner</div>
-</aside>
-</div>
+        // ==================== INICIALIZAÇÃO ====================
+        function inicializar() {
+            processarDados();
+            gerarListaSemestres();
+            carregarSemestre(1);
+            inicializarBusca();
+            inicializarFiltros();
+            atualizarEstatisticasGlobais();
+            carregarDownloadsSalvos();
+            configurarServiceWorker();
+            configurarAtalhosTeclado();
+            
+            // Verificar se há hash na URL
+            if (window.location.hash) {
+                processarHashURL();
+            }
+            
+            console.log('Sistema ecivilufc inicializado com R2:', R2_CONFIG.baseUrl);
+        }
 
-<script>
-function next(s){document.querySelectorAll('.step').forEach(el=>el.classList.remove('active'));document.getElementById('step'+s).classList.add('active');document.getElementById('progress-bar').style.width=(s*25)+"%";salvarLocal();}
-function mostrarDica(){const t=document.getElementById('tipo').value;const dicas={cobranca:"Anexe prints do extrato e do protocolo do SAC.",atraso:"Tenha o e-mail de confirmação da compra e o prazo prometido.",arrependimento:"O prazo é de 7 dias após o recebimento.",vicio:"Tire fotos do defeito e do laudo da assistência técnica.",cancelamento:"Print da tela de erro ou chat de negativa."};document.getElementById('dicaProvas').innerHTML=`<strong>💡 Provas Sugeridas:</strong> ${dicas[t]}`;}
-function salvarLocal(){localStorage.setItem('direitoExpress',JSON.stringify({tipo:document.getElementById('tipo').value,nome:document.getElementById('nome').value,empresa:document.getElementById('empresa').value,prot:document.getElementById('prot').value,relato:document.getElementById('relato').value}));}
-window.onload=function(){const dados=JSON.parse(localStorage.getItem('direitoExpress'));if(dados){document.getElementById('tipo').value=dados.tipo||"cobranca";document.getElementById('nome').value=dados.nome||"";document.getElementById('empresa').value=dados.empresa||"";document.getElementById('prot').value=dados.prot||"";document.getElementById('relato').value=dados.relato||"";mostrarDica();}}
-function finalizar(){const d={nome:document.getElementById('nome').value||"[Seu Nome]",empresa:document.getElementById('empresa').value||"[Empresa]",prot:document.getElementById('prot').value||"[Não Informado]",relato:document.getElementById('relato').value||"[Relato]",tipo:document.getElementById('tipo').value,data:new Date().toLocaleDateString('pt-BR')};const arts={cobranca:"Art. 42",atraso:"Art. 35",arrependimento:"Art. 49",vicio:"Art. 18",cancelamento:"boa-fé objetiva"};document.getElementById('papel').innerText=`NOTIFICAÇÃO EXTRAJUDICIAL\n\nÀ empresa ${d.empresa}\n\nEu, ${d.nome}, consumidor(a), venho formalizar reclamação referente a: ${d.relato}.\n\nFundamento minha solicitação no Código de Defesa do Consumidor (${arts[d.tipo]}), exigindo solução imediata. Ressalto que tentei resolver via protocolo nº ${d.prot}.\n\nPrazo para resposta: 5 dias úteis.\n\nAtenciosamente,\n${d.nome}\nData: ${d.data}`;next(4);}
-function baixarPDF(){const {jsPDF}=window.jspdf;const doc=new jsPDF();doc.text(doc.splitTextToSize(document.getElementById('papel').innerText,180),15,20);doc.save("Notificacao_DireitoConsumidor.pdf");}
-function whatsapp(){const txt=encodeURIComponent(document.getElementById('papel').innerText);window.open(`https://api.whatsapp.com/send?text=${txt}`);}
-</script>
+        // ==================== PROCESSAMENTO DE DADOS ====================
+        function processarDados() {
+            todosDados = [];
+            professoresLista.clear();
+            anosLista.clear();
+            
+            semestres.forEach(semestre => {
+                semestre.disciplinas.forEach(disciplina => {
+                    professoresLista.add(disciplina.professor);
+                    
+                    disciplina.provas.forEach(prova => {
+                        anosLista.add(prova.ano);
+                        
+                        todosDados.push({
+                            semestre: semestre.nome,
+                            semestreId: semestre.id,
+                            disciplina: disciplina.nome,
+                            professor: disciplina.professor,
+                            prova: prova.nome,
+                            arquivo: prova.arquivo,
+                            tamanho: prova.tamanho,
+                            tipo: prova.tipo,
+                            ano: prova.ano,
+                            tags: [...disciplina.tags, ...prova.tags],
+                            downloads: downloadsData[prova.arquivo] || 0
+                        });
+                    });
+                });
+            });
+            
+            // Ordenar anos do mais recente para o mais antigo
+            anosLista = new Set([...anosLista].sort((a, b) => b - a));
+        }
 
+        // ==================== NAVEGAÇÃO ====================
+        function gerarListaSemestres() {
+            const lista = document.getElementById('semesterList');
+            lista.innerHTML = '';
+            
+            semestres.forEach(semestre => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#semestre-${semestre.id}`;
+                a.textContent = semestre.nome;
+                
+                if (semestre.nome.includes('Optativa')) {
+                    a.classList.add('optativas');
+                }
+                
+                const countSpan = document.createElement('span');
+                countSpan.className = 'semester-count';
+                countSpan.textContent = semestre.disciplinas.length;
+                a.appendChild(countSpan);
+                
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    carregarSemestre(semestre.id);
+                    
+                    // Atualizar navegação ativa
+                    document.querySelectorAll('#semesterList a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    a.classList.add('active');
+                });
+                
+                li.appendChild(a);
+                lista.appendChild(li);
+            });
+            
+            // Ativar primeiro semestre
+            lista.querySelector('a').classList.add('active');
+        }
+
+        function carregarSemestre(id) {
+            const semestre = semestres.find(s => s.id === id);
+            if (!semestre) return;
+            
+            currentFilters.semestre = id;
+            document.getElementById('semesterTitle').textContent = semestre.nome;
+            
+            // Aplicar filtros
+            let disciplinasFiltradas = filtrarDisciplinas(semestre.disciplinas);
+            
+            // Renderizar
+            renderizarDisciplinas(disciplinasFiltradas);
+            atualizarURL();
+        }
+
+        // ==================== FILTROS ====================
+        function filtrarDisciplinas(disciplinas) {
+            return disciplinas.map(disciplina => {
+                // Filtrar provas da disciplina
+                const provasFiltradas = disciplina.provas.filter(prova => {
+                    // Filtro por professor
+                    if (currentFilters.professor && disciplina.professor !== currentFilters.professor) {
+                        return false;
+                    }
+                    
+                    // Filtro por tipo
+                    if (currentFilters.tipo && prova.tipo !== currentFilters.tipo) {
+                        return false;
+                    }
+                    
+                    // Filtro por tag
+                    if (currentFilters.tag) {
+                        const todasTags = [...disciplina.tags, ...prova.tags];
+                        if (!todasTags.includes(currentFilters.tag)) {
+                            return false;
+                        }
+                    }
+                    
+                    // Filtro por ano
+                    if (currentFilters.ano && prova.ano !== currentFilters.ano) {
+                        return false;
+                    }
+                    
+                    // Filtro por busca
+                    if (currentFilters.search) {
+                        const termo = currentFilters.search.toLowerCase();
+                        const buscaDisciplina = disciplina.nome.toLowerCase().includes(termo);
+                        const buscaProfessor = disciplina.professor.toLowerCase().includes(termo);
+                        const buscaProva = prova.nome.toLowerCase().includes(termo);
+                        
+                        if (!buscaDisciplina && !buscaProfessor && !buscaProva) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                // Retornar disciplina apenas se tiver provas após filtro
+                return provasFiltradas.length > 0 ? {
+                    ...disciplina,
+                    provas: provasFiltradas
+                } : null;
+            }).filter(d => d !== null); // Remover disciplinas vazias
+        }
+
+        function inicializarFiltros() {
+            const filterProfessor = document.getElementById('filterProfessor');
+            const filterTipo = document.getElementById('filterTipo');
+            const filterTag = document.getElementById('filterTag');
+            const filterAno = document.getElementById('filterAno');
+            
+            // Popular professores
+            professoresLista.forEach(prof => {
+                const option = document.createElement('option');
+                option.value = prof;
+                option.textContent = prof;
+                filterProfessor.appendChild(option);
+            });
+            
+            // Popular anos
+            anosLista.forEach(ano => {
+                const option = document.createElement('option');
+                option.value = ano;
+                option.textContent = ano;
+                filterAno.appendChild(option);
+            });
+            
+            // Event listeners
+            [filterProfessor, filterTipo, filterTag, filterAno].forEach(select => {
+                select.addEventListener('change', function() {
+                    currentFilters[this.id.replace('filter', '').toLowerCase()] = this.value;
+                    carregarSemestre(currentFilters.semestre);
+                });
+            });
+        }
+
+        function limparFiltros() {
+            currentFilters.professor = '';
+            currentFilters.tipo = '';
+            currentFilters.tag = '';
+            currentFilters.ano = '';
+            currentFilters.search = '';
+            
+            document.getElementById('filterProfessor').value = '';
+            document.getElementById('filterTipo').value = '';
+            document.getElementById('filterTag').value = '';
+            document.getElementById('filterAno').value = '';
+            document.getElementById('searchInput').value = '';
+            
+            carregarSemestre(currentFilters.semestre);
+        }
+
+        // ==================== BUSCA ====================
+        function inicializarBusca() {
+            const searchInput = document.getElementById('searchInput');
+            let timeout = null;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                
+                timeout = setTimeout(() => {
+                    currentFilters.search = this.value.trim();
+                    carregarSemestre(currentFilters.semestre);
+                }, 300);
+            });
+            
+            // Busca por Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    currentFilters.search = this.value.trim();
+                    carregarSemestre(currentFilters.semestre);
+                }
+            });
+        }
+
+        // ==================== RENDERIZAÇÃO ====================
+        function renderizarDisciplinas(disciplinas) {
+            const container = document.getElementById('disciplinesContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (disciplinas.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            container.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+            container.innerHTML = '';
+            
+            let totalProvas = 0;
+            
+            disciplinas.forEach(disciplina => {
+                totalProvas += disciplina.provas.length;
+                
+                const card = document.createElement('div');
+                card.className = 'discipline-card';
+                
+                // Tags da disciplina
+                let tagsHTML = '';
+                disciplina.tags.forEach(tag => {
+                    tagsHTML += `<span class="tag tag-${tag}">${getTagNome(tag)}</span>`;
+                });
+                
+                // Lista de provas
+                let provasHTML = '';
+                disciplina.provas.forEach(prova => {
+                    const downloadCount = downloadsData[prova.arquivo] || 0;
+                    const isPopular = downloadCount > 10;
+                    
+                    // Tags da prova
+                    let provaTagsHTML = '';
+                    prova.tags.forEach(tag => {
+                        provaTagsHTML += `<span class="tag tag-${tag}">${getTagNome(tag)}</span>`;
+                    });
+                    if (isPopular) {
+                        provaTagsHTML += `<span class="tag tag-popular"><i class="fas fa-fire"></i> Popular</span>`;
+                    }
+                    
+                    provasHTML += `
+                        <li>
+                            <div class="prova-header">
+                                <h4>${prova.nome}</h4>
+                                <div class="prova-stats">
+                                    <span class="file-size">${prova.tamanho}</span>
+                                    <span class="download-count" title="${downloadCount} downloads">
+                                        <i class="fas fa-download"></i> ${downloadCount}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-tags">${provaTagsHTML}</div>
+                            <div class="prova-actions">
+                                <button class="btn btn-secondary btn-small" 
+                                        onclick="visualizarPDF('${prova.arquivo}', '${disciplina.nome} - ${prova.nome}')">
+                                    <i class="fas fa-eye"></i> Visualizar
+                                </button>
+                                <button class="btn btn-primary btn-small" 
+                                        onclick="baixarProva('${prova.arquivo}', '${disciplina.nome} - ${prova.nome}')">
+                                    <i class="fas fa-download"></i> Baixar
+                                </button>
+                                <button class="btn btn-secondary btn-small" 
+                                        onclick="compartilharProva('${prova.arquivo}', '${disciplina.nome} - ${prova.nome}')">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </li>
+                    `;
+                });
+                
+                card.innerHTML = `
+                    <h3>${disciplina.nome}</h3>
+                    <div class="discipline-professor">
+                        <i class="fas fa-user-graduate"></i> ${disciplina.professor}
+                    </div>
+                    <div class="card-tags">${tagsHTML}</div>
+                    <ul class="prova-list">${provasHTML}</ul>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            // Atualizar contadores
+            document.getElementById('disciplinaCount').textContent = disciplinas.length;
+            document.getElementById('provaCount').textContent = totalProvas;
+        }
+
+        // ==================== FUNCIONALIDADES DE PDF ====================
+        function visualizarPDF(url, titulo) {
+            // Usar Google Docs Viewer para visualização
+            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+            
+            document.getElementById('pdfViewer').src = viewerUrl;
+            document.getElementById('modalTitle').textContent = titulo;
+            document.getElementById('pdfModal').style.display = 'flex';
+            
+            // Registrar visualização
+            registrarVisualizacao(url);
+        }
+
+        function fecharModal() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.getElementById('pdfViewer').src = '';
+        }
+
+        function baixarProva(url, nome) {
+            // Criar link de download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = nome.replace(/[^a-z0-9]/gi, '_') + '.pdf';
+            link.target = '_blank';
+            
+            // Adicionar ao documento, clicar e remover
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Registrar download
+            registrarDownload(url);
+            
+            // Feedback visual
+            mostrarNotificacao(`Download iniciado: ${nome}`, 'success');
+        }
+
+        // ==================== ESTATÍSTICAS ====================
+        function registrarDownload(url) {
+            downloadsData[url] = (downloadsData[url] || 0) + 1;
+            localStorage.setItem('ecivilufc_downloads', JSON.stringify(downloadsData));
+            atualizarEstatisticasGlobais();
+            carregarSemestre(currentFilters.semestre); // Atualizar contadores
+        }
+
+        function registrarVisualizacao(url) {
+            // Pode expandir para rastrear visualizações também
+            console.log('Visualização registrada:', url);
+        }
+
+        function atualizarEstatisticasGlobais() {
+            const totalProvas = todosDados.length;
+            const totalDownloads = Object.values(downloadsData).reduce((a, b) => a + b, 0);
+            const totalDisciplinas = new Set(todosDados.map(d => d.disciplina)).size;
+            const provasComGabarito = todosDados.filter(d => d.tags.includes('gabarito')).length;
+            const provasResolvidas = todosDados.filter(d => d.tags.includes('resolvida')).length;
+            const provaMaisBaixada = Math.max(...Object.values(downloadsData), 0);
+            
+            // Atualizar header
+            document.getElementById('totalProvas').textContent = totalProvas;
+            document.getElementById('totalDownloads').textContent = totalDownloads;
+            document.getElementById('totalDisciplinas').textContent = totalDisciplinas;
+            document.getElementById('totalSemestres').textContent = semestres.length;
+            
+            // Atualizar dashboard
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <div class="stat-value">${totalProvas}</div>
+                    <div class="stat-label">Provas Disponíveis</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-download"></i>
+                    <div class="stat-value">${totalDownloads}</div>
+                    <div class="stat-label">Downloads Totais</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-value">${provasComGabarito}</div>
+                    <div class="stat-label">Com Gabarito</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="stat-value">${provasResolvidas}</div>
+                    <div class="stat-label">Resolvidas</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-fire"></i>
+                    <div class="stat-value">${provaMaisBaixada}</div>
+                    <div class="stat-label">Recorde de Downloads</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-percentage"></i>
+                    <div class="stat-value">${totalProvas ? Math.round((provasComGabarito / totalProvas) * 100) : 0}%</div>
+                    <div class="stat-label">Com Gabarito</div>
+                </div>
+            `;
+            
+            // Atualizar última atualização
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('pt-BR');
+        }
+
+        function carregarDownloadsSalvos() {
+            // Carregar downloads do localStorage
+            Object.keys(downloadsData).forEach(url => {
+                const prova = todosDados.find(p => p.arquivo === url);
+                if (prova) {
+                    prova.downloads = downloadsData[url];
+                }
+            });
+        }
+
+        // ==================== FUNCIONALIDADES EXTRAS ====================
+        function abrirProvaAleatoria() {
+            if (todosDados.length === 0) {
+                mostrarNotificacao('Nenhuma prova disponível', 'error');
+                return;
+            }
+            
+            const provaAleatoria = todosDados[Math.floor(Math.random() * todosDados.length)];
+            carregarSemestre(provaAleatoria.semestreId);
+            
+            // Destacar a prova após carregar
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.discipline-card');
+                cards.forEach(card => {
+                    if (card.textContent.includes(provaAleatoria.disciplina)) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        card.style.animation = 'pulse 2s';
+                        setTimeout(() => card.style.animation = '', 2000);
+                    }
+                });
+            }, 500);
+            
+            mostrarNotificacao(`Prova aleatória: ${provaAleatoria.disciplina} - ${provaAleatoria.prova}`, 'info');
+        }
+
+        function mostrarMaisBaixadas() {
+            const maisBaixadas = [...todosDados]
+                .sort((a, b) => (b.downloads || 0) - (a.downloads || 0))
+                .slice(0, 5);
+            
+            if (maisBaixadas.length === 0) {
+                mostrarNotificacao('Ainda não há dados de downloads', 'info');
+                return;
+            }
+            
+            let mensagem = 'Provas mais baixadas:\n\n';
+            maisBaixadas.forEach((p, i) => {
+                mensagem += `${i+1}. ${p.disciplina} - ${p.prova}\n   📥 ${p.downloads || 0} downloads\n\n`;
+            });
+            
+            alert(mensagem);
+        }
+
+        function filtrarRecentes() {
+            currentFilters.tag = 'recente';
+            document.getElementById('filterTag').value = 'recente';
+            carregarSemestre(currentFilters.semestre);
+            mostrarNotificacao('Mostrando apenas provas recentes', 'info');
+        }
+
+        function compartilharProva(url, titulo) {
+            if (navigator.share) {
+                navigator.share({
+                    title: titulo,
+                    text: 'Confira esta prova do repositório ecivilufc',
+                    url: url
+                });
+            } else {
+                // Fallback: copiar para área de transferência
+                navigator.clipboard.writeText(url).then(() => {
+                    mostrarNotificacao('Link copiado para a área de transferência!', 'success');
+                });
+            }
+        }
+
+        // ==================== CONTRIBUIÇÃO ====================
+        function abrirFormularioContribuicao() {
+            document.getElementById('contributionModal').style.display = 'flex';
+        }
+
+        function fecharContributionModal() {
+            document.getElementById('contributionModal').style.display = 'none';
+        }
+
+        function copiarEmail() {
+            const email = 'seu-email@ecivilufc.com';
+            navigator.clipboard.writeText(email).then(() => {
+                mostrarNotificacao('Email copiado para a área de transferência!', 'success');
+            });
+        }
+
+        function reportarProblema() {
+            const problema = prompt('Descreva o problema encontrado (link quebrado, erro no conteúdo, etc.):');
+            if (problema && problema.trim().length > 5) {
+                // Aqui você poderia enviar para um backend
+                console.log('Problema reportado:', problema);
+                mostrarNotificacao('Problema reportado com sucesso! Obrigado.', 'success');
+            }
+        }
+
+        function sugerirMelhoria() {
+            const sugestao = prompt('Tem alguma sugestão para melhorar o repositório?');
+            if (sugestao && sugestao.trim().length > 5) {
+                console.log('Sugestão recebida:', sugestao);
+                mostrarNotificacao('Sugestão enviada com sucesso! Obrigado.', 'success');
+            }
+        }
+
+        // ==================== URLS AMIGÁVEIS ====================
+        function atualizarURL() {
+            let hash = `#semestre-${currentFilters.semestre}`;
+            
+            const params = [];
+            if (currentFilters.professor) params.push(`prof=${encodeURIComponent(currentFilters.professor)}`);
+            if (currentFilters.tipo) params.push(`tipo=${currentFilters.tipo}`);
+            if (currentFilters.tag) params.push(`tag=${currentFilters.tag}`);
+            if (currentFilters.ano) params.push(`ano=${currentFilters.ano}`);
+            if (currentFilters.search) params.push(`search=${encodeURIComponent(currentFilters.search)}`);
+            
+            if (params.length > 0) {
+                hash += '&' + params.join('&');
+            }
+            
+            window.history.replaceState(null, '', hash);
+        }
+
+        function processarHashURL() {
+            const hash = window.location.hash.substring(1);
+            if (!hash) return;
+            
+            const [semestrePart, ...paramParts] = hash.split('&');
+            const semestreId = parseInt(semestrePart.replace('semestre-', '')) || 1;
+            
+            // Processar parâmetros
+            const params = new URLSearchParams(paramParts.join('&'));
+            
+            currentFilters = {
+                semestre: semestreId,
+                professor: params.get('prof') || '',
+                tipo: params.get('tipo') || '',
+                tag: params.get('tag') || '',
+                ano: params.get('ano') || '',
+                search: params.get('search') || ''
+            };
+            
+            // Atualizar filtros na UI
+            document.getElementById('filterProfessor').value = currentFilters.professor;
+            document.getElementById('filterTipo').value = currentFilters.tipo;
+            document.getElementById('filterTag').value = currentFilters.tag;
+            document.getElementById('filterAno').value = currentFilters.ano;
+            document.getElementById('searchInput').value = currentFilters.search;
+            
+            // Carregar semestre
+            carregarSemestre(semestreId);
+            
+            // Atualizar navegação ativa
+            document.querySelectorAll('#semesterList a').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#semestre-${semestreId}`) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // ==================== PWA & SERVICE WORKER ====================
+        function configurarServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+                });
+            }
+        }
+
+        // ==================== ATALHOS DE TECLADO ====================
+        function configurarAtalhosTeclado() {
+            document.addEventListener('keydown', (e) => {
+                // Fechar modais com ESC
+                if (e.key === 'Escape') {
+                    fecharModal();
+                    fecharContributionModal();
+                }
+                
+                // Busca com Ctrl+F
+                if (e.ctrlKey && e.key === 'f') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
+                
+                // Prova aleatória com Ctrl+R
+                if (e.ctrlKey && e.key === 'r') {
+                    e.preventDefault();
+                    abrirProvaAleatoria();
+                }
+                
+                // Limpar filtros com Ctrl+L
+                if (e.ctrlKey && e.key === 'l') {
+                    e.preventDefault();
+                    limparFiltros();
+                }
+            });
+        }
+
+        // ==================== FUNÇÕES AUXILIARES ====================
+        function getTagNome(tag) {
+            const tags = {
+                'gabarito': 'Com Gabarito',
+                'resolvida': 'Resolvida',
+                'recente': 'Recente'
+            };
+            return tags[tag] || tag;
+        }
+
+        function mostrarNotificacao(mensagem, tipo = 'info') {
+            // Criar notificação
+            const notificacao = document.createElement('div');
+            notificacao.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${tipo === 'success' ? '#4caf50' : tipo === 'error' ? '#d32f2f' : '#2196f3'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            notificacao.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${tipo === 'success' ? 'check-circle' : tipo === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${mensagem}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notificacao);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                notificacao.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notificacao);
+                }, 300);
+            }, 3000);
+            
+            // Adicionar estilos de animação
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        function mostrarSobre() {
+            alert(`ecivilufc - Repositório de Provas\n\n
+            Versão: 2.0\n
+            Desenvolvido para a comunidade acadêmica\n
+            Engenharia Civil - UFC\n\n
+            Características:\n
+            • 10 semestres + optativas\n
+            • Busca avançada\n
+            • Visualização online de PDFs\n
+            • Estatísticas de downloads\n
+            • Totalmente gratuito\n
+            • Sem necessidade de cadastro\n\n
+            Hospedado no Cloudflare Pages + R2`);
+        }
+
+        function mostrarPrivacidade() {
+            alert(`Política de Privacidade\n\n
+            • Não coletamos dados pessoais\n
+            • Downloads são contabilizados apenas localmente\n
+            • Não usamos cookies de rastreamento\n
+            • Todas as provas são de domínio público ou compartilhadas com permissão\n
+            • O código é aberto e transparente`);
+        }
+
+        // ==================== INICIALIZAR ====================
+        document.addEventListener('DOMContentLoaded', inicializar);
+    </script>
 </body>
 </html>
